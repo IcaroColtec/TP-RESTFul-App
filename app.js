@@ -34,11 +34,13 @@ app.factory('NewsService', function($http){
 app.controller('NewsController', ['NewsService', function(newsService){
   var self = this;
   self.news = [];
+  self.principais = [];
   self.new = {};
  
   newsService.getNews(function(answer) {
     if (answer !== null) {
       self.news = answer;
+      self.setPrincipais();
     }
   });
 
@@ -48,7 +50,16 @@ app.controller('NewsController', ['NewsService', function(newsService){
         self.new=answer;
       }
     });
-    
+  }
+
+
+  this.setPrincipais = function(){
+      for(let i=0; i<self.news.length; i++){
+        if (self.news[i].points >= 150){
+          self.principais.push(self.news[i]);  
+          console.log(self.principais);
+        }
+      }
   }
 
 }]); 
