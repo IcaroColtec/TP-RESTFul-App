@@ -1,19 +1,31 @@
-<html ng-app="news">
+<html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Times cartola</title>
+  <title>Hacker News API</title>
   <script data-require="angular.js@1.4.6" data-semver="1.4.6" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.6/angular.min.js"></script>
-  <script data-require="angular-route@1.4.0" data-semver="1.4.0" src="https://code.angularjs.org/1.4.0/angular-route.js"></script>
   <script src="app.js"></script>
 </head>
 
-<body>
+<body ng-app="news">
     
-    <div class="jumbotron">
-      <ng-view></ng-view>
-    </div>
+  <div ng-controller="NewsController as newsCtrl">
+
+      <h1>Notícia Selecionada:</h1>
+      <h3>Titulo:   {{newsCtrl.new.title}}</h3>
+      <p>Autor:     {{newsCtrl.new.user}}</p>
+      <p>Tempo:     {{newsCtrl.new.time_ago}}</p>
+      <p>Tipo:      {{newsCtrl.new.type}}</p>
+  
+      <table>
+          <tr><td><b>Notícias</b></td></tr>
+          <tr ng-repeat="new in newsCtrl.news">
+            <td>{{new.title}}</td> <td><button ng-click="newsCtrl.getSingleNotice(new.id)">Detalhes</button></td>
+          </tr>
+      </table>
+
+  </div>
   
 </body>
 </html>
